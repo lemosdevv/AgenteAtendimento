@@ -38,9 +38,12 @@ The import command reads the CSV files from the repository `data/` directory. A 
 
 The policy command extracts searchable content from `data/políticas_da_loja.pdf` and stores it in SQLite. A different file can be provided with `python manage.py ingest_policies --file <path>`.
 
+## Gemini configuration
+
+The project uses the official Google GenAI Python SDK. Copy `.env.example` to `.env` and set `GEMINI_API_KEY` before making model requests. The default model is `gemini-3.8-flash`, and it can be changed with `GEMINI_MODEL`.
+
 ## Planned increments
 
-1. Add the Gemini provider behind a service interface.
-2. Add the customer support agent and conversation history.
-3. Add tests and example conversations.
+1. Add the customer support agent and conversation history.
+2. Add tests and example conversations.
 
