@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "code-documentation": {
+      "source": "bytedance/deer-flow",
+      "sourceType": "github",
+      "skillPath": "skills/public/code-documentation/SKILL.md",
+      "computedHash": "ec9a1d364fa9e90e425c7c3e8cff85a0cb21ca1b7321b6e4964ece5b693227b1"
+    },
+    "codebase-documenter": {
+      "source": "ailabs-393/ai-labs-claude-skills",
+      "sourceType": "github",
+      "skillPath": "packages/skills/codebase-documenter/SKILL.md",
+      "computedHash": "6b62f6146fa67d84a9459419127c5a55507a29e25f4987ef4cb2fe79889713a6"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "b146008599c31057cef1c145774cea5d5afb30e8f43fa802e47a4b461419aaaf"
+    }
+  }
+}
