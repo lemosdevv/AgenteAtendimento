@@ -93,3 +93,23 @@ class Promotion(models.Model):
     def __str__(self) -> str:
         return f"{self.description} - {self.product.name}"
 
+
+class PolicyChunk(models.Model):
+    source_name = models.CharField(max_length=255)
+    page_number = models.PositiveIntegerField()
+    chunk_index = models.PositiveIntegerField()
+    content = models.TextField()
+    search_text = models.TextField()
+
+    class Meta:
+        ordering = ["page_number", "chunk_index"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["source_name", "page_number", "chunk_index"],
+                name="unique_policy_chunk",
+            )
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.source_name} - page {self.page_number}"
+

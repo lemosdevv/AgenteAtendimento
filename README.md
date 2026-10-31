@@ -22,6 +22,7 @@ pip install -r requirements.txt
 cp .env.example .env
 python manage.py migrate
 python manage.py import_data
+python manage.py ingest_policies
 python manage.py runserver
 ```
 
@@ -35,10 +36,11 @@ The health check is available at `http://127.0.0.1:8000/health/`.
 
 The import command reads the CSV files from the repository `data/` directory. A different directory can be provided with `python manage.py import_data --data-dir <path>`.
 
+The policy command extracts searchable content from `data/políticas_da_loja.pdf` and stores it in SQLite. A different file can be provided with `python manage.py ingest_policies --file <path>`.
+
 ## Planned increments
 
-1. Add searchable policy documents.
-2. Add the Gemini provider behind a service interface.
-3. Add the customer support agent and conversation history.
-4. Add tests and example conversations.
+1. Add the Gemini provider behind a service interface.
+2. Add the customer support agent and conversation history.
+3. Add tests and example conversations.
 
