@@ -6,7 +6,7 @@ The source code, identifiers, documentation, and comments are written in English
 
 ## Current status
 
-The project currently contains the Django foundation, SQLite configuration, environment configuration, a health check endpoint, the operational data models, and an idempotent CSV import command. Gemini integration will be added in a separate increment.
+This repository is for developers who want to run and review a Django customer support agent for Emporio da Musica. It includes SQLite-backed operational data, searchable store policies, Gemini integration, conversation history, and an HTTP endpoint.
 
 ## Requirements
 
@@ -26,21 +26,26 @@ python manage.py ingest_policies
 python manage.py runserver
 ```
 
-On Windows PowerShell, replace the environment activation command with:
+On Windows PowerShell, replace the activation and copy commands with:
 
 ```powershell
 .venv\Scripts\Activate.ps1
+Copy-Item .env.example .env
 ```
+
+Before starting the server, open `.env` and replace `REPLACE_WITH_A_RANDOM_SECRET` with a random secret value. The application does not start without `DJANGO_SECRET_KEY`; test runs generate a temporary key automatically.
 
 The health check is available at `http://127.0.0.1:8000/health/`.
 
-The import command reads the CSV files from the repository `data/` directory. A different directory can be provided with `python manage.py import_data --data-dir <path>`.
+The import command reads the CSV files from the repository `data/` directory. To use a different directory, run `python manage.py import_data --data-dir DATA_DIR` and replace `DATA_DIR` with the directory path.
 
-The policy command extracts searchable content from `data/políticas_da_loja.pdf` and stores it in SQLite. A different file can be provided with `python manage.py ingest_policies --file <path>`.
+The policy command extracts searchable content from `data/políticas_da_loja.pdf` and stores it in SQLite. To use a different file, run `python manage.py ingest_policies --file POLICY_FILE` and replace `POLICY_FILE` with the PDF path.
 
 ## Gemini configuration
 
 The project uses the official Google GenAI Python SDK. Copy `.env.example` to `.env` and set `GEMINI_API_KEY` before making model requests. The default model is `gemini-3.8-flash`, and it can be changed with `GEMINI_MODEL`.
+
+For production, set `DJANGO_DEBUG=False` and provide a strong `DJANGO_SECRET_KEY`. Production mode enables HTTPS redirects, HSTS, secure cookies, and content-type sniffing protection.
 
 ## Customer support agent
 
@@ -67,17 +72,29 @@ The HTTP endpoint is available at `POST /api/chat/`:
 }
 ```
 
-The `customer_id` field is optional. The first request returns a `conversation_id`. Send that identifier in later requests to preserve the previous messages:
+The `customer_id` field is optional. The first request returns a `conversation_id` and a private `conversation_token`. Send both identifiers in later requests to preserve the previous messages:
 
 ```json
 {
   "message": "E qual é o prazo estimado?",
-  "conversation_id": "returned-conversation-uuid"
+  "conversation_id": "CONVERSATION_ID",
+  "conversation_token": "CONVERSATION_TOKEN"
 }
 ```
 
-## Planned increments
+## Tests and examples
 
-1. Add conversation history.
-2. Add tests and example conversations.
+Run the test suite with:
+
+```bash
+python manage.py test
+```
+
+Conversation examples are available in `examples/conversations.md`.
+
+## Before production
+
+- Add authenticated user identity instead of relying only on bearer conversation tokens.
+- Add rate limiting and request monitoring to the public chat endpoint.
+- Configure a production database and secret management service.
 

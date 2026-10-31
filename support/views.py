@@ -1,14 +1,14 @@
 import json
 from uuid import UUID
 
-from django.http import JsonResponse
 from django.db import transaction
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
+from support.models import Conversation, Message
 from support.services.customer_support_agent import CustomerSupportAgent
 from support.services.llm import GeminiTextGenerator, MissingGeminiApiKeyError
-from support.models import Conversation, Message
 
 
 @csrf_exempt
@@ -36,12 +36,21 @@ def chat(request):
         )
 
     conversation_id = payload.get("conversation_id")
+    conversation_token = payload.get("conversation_token")
     conversation = None
+    new_conversation = conversation_id is None
     if conversation_id is not None:
+        if not conversation_token:
+            return JsonResponse(
+                {"error": "The 'conversation_token' field is required."},
+                status=403,
+            )
         try:
             conversation_uuid = UUID(str(conversation_id))
+            token_uuid = UUID(str(conversation_token))
             conversation = Conversation.objects.prefetch_related("messages").get(
-                id=conversation_uuid
+                id=conversation_uuid,
+                access_token=token_uuid,
             )
         except (ValueError, Conversation.DoesNotExist):
             return JsonResponse(
@@ -59,12 +68,13 @@ def chat(request):
         history = list(
             conversation.messages.values("role", "content").order_by("created_at", "id")
         )[-10:]
+    trusted_customer_id = conversation.customer_id if conversation is not None else None
 
     try:
         agent = CustomerSupportAgent(GeminiTextGenerator())
         response = agent.respond(
             message.strip(),
-            customer_id=customer_id,
+            customer_id=trusted_customer_id,
             history=history,
         )
     except MissingGeminiApiKeyError as error:
@@ -87,5 +97,11 @@ def chat(request):
             content=response,
         )
 
-    return JsonResponse({"conversation_id": str(conversation.id), "response": response})
+    response_data = {
+        "conversation_id": str(conversation.id),
+        "response": response,
+    }
+    if new_conversation:
+        response_data["conversation_token"] = str(conversation.access_token)
+    return JsonResponse(response_data)
 

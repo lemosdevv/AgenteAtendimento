@@ -118,6 +118,7 @@ class PolicyChunk(models.Model):
 
 class Conversation(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    access_token = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     customer = models.ForeignKey(
         Customer,
         on_delete=models.SET_NULL,

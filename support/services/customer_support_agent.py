@@ -104,7 +104,10 @@ Responda ao cliente de forma objetiva. Não mencione que recebeu um contexto nem
 
     @staticmethod
     def _find_requested_order(message: str, customer_id: int | None) -> Order | None:
-        match = re.search(r"(?:pedido|compra)\s*(?:n[º°.]?\s*)?(\d+)", message.lower())
+        match = re.search(
+            r"(?:pedido|compra)\s*(?:#|n[º°.]?\s*)?(\d+)",
+            message.lower(),
+        )
         if match:
             return get_order(int(match.group(1)))
         if customer_id:
