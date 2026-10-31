@@ -42,8 +42,22 @@ The policy command extracts searchable content from `data/políticas_da_loja.pdf
 
 The project uses the official Google GenAI Python SDK. Copy `.env.example` to `.env` and set `GEMINI_API_KEY` before making model requests. The default model is `gemini-3.8-flash`, and it can be changed with `GEMINI_MODEL`.
 
+## Customer support agent
+
+The `CustomerSupportAgent` coordinates deterministic searches and delegates response generation to a text provider:
+
+```python
+from support.services.customer_support_agent import CustomerSupportAgent
+from support.services.llm import GeminiTextGenerator
+
+agent = CustomerSupportAgent(GeminiTextGenerator())
+answer = agent.respond("Quais violões estão disponíveis até R$ 1.000?")
+```
+
+The agent checks the operational database for product and order questions, searches the policy chunks when relevant, and instructs the model to answer in Brazilian Portuguese without inventing unavailable information.
+
 ## Planned increments
 
-1. Add the customer support agent and conversation history.
+1. Add conversation history and an HTTP endpoint.
 2. Add tests and example conversations.
 
