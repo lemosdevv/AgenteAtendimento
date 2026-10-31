@@ -7,17 +7,35 @@
       "skillPath": "skills/public/code-documentation/SKILL.md",
       "computedHash": "ec9a1d364fa9e90e425c7c3e8cff85a0cb21ca1b7321b6e4964ece5b693227b1"
     },
+    "code-review": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "skillPath": "skills/engineering/code-review/SKILL.md",
+      "computedHash": "c2e0695f4d6bb9e1cc0b4c68d9965d062271cff387000fa59c1c2d31a18c25b8"
+    },
     "codebase-documenter": {
       "source": "ailabs-393/ai-labs-claude-skills",
       "sourceType": "github",
       "skillPath": "packages/skills/codebase-documenter/SKILL.md",
       "computedHash": "6b62f6146fa67d84a9459419127c5a55507a29e25f4987ef4cb2fe79889713a6"
     },
+    "django-access-review": {
+      "source": "getsentry/skills",
+      "sourceType": "github",
+      "skillPath": "skills/django-access-review/SKILL.md",
+      "computedHash": "19b654e16ed29b4aafba01bd8751b200ec11e640b034f10d3f28891724f840bb"
+    },
     "find-skills": {
       "source": "vercel-labs/skills",
       "sourceType": "github",
       "skillPath": "skills/find-skills/SKILL.md",
       "computedHash": "b146008599c31057cef1c145774cea5d5afb30e8f43fa802e47a4b461419aaaf"
+    },
+    "technical-documentation": {
+      "source": "wondelai/skills",
+      "sourceType": "github",
+      "skillPath": "technical-documentation/SKILL.md",
+      "computedHash": "048516742cc3b3c248f2ced3072150a9e56cfc67c65dd27e5546390d12fd5e5e"
     }
   }
 }
