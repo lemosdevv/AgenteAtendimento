@@ -56,8 +56,19 @@ answer = agent.respond("Quais violões estão disponíveis até R$ 1.000?")
 
 The agent checks the operational database for product and order questions, searches the policy chunks when relevant, and instructs the model to answer in Brazilian Portuguese without inventing unavailable information.
 
+The HTTP endpoint is available at `POST /api/chat/`:
+
+```json
+{
+  "message": "Qual é o status do meu pedido?",
+  "customer_id": 3
+}
+```
+
+The `customer_id` field is optional. Conversation persistence will be added in a later increment.
+
 ## Planned increments
 
-1. Add conversation history and an HTTP endpoint.
+1. Add conversation history.
 2. Add tests and example conversations.
 
