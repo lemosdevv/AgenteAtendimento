@@ -56,6 +56,8 @@ answer = agent.respond("Quais violões estão disponíveis até R$ 1.000?")
 
 The agent checks the operational database for product and order questions, searches the policy chunks when relevant, and instructs the model to answer in Brazilian Portuguese without inventing unavailable information.
 
+Before building the context, `IntentRouter` classifies each message as a product search, order lookup, policy question, general information request, or out-of-scope request. Gemini is used as the primary classifier, with a local fallback for tests or temporary provider unavailability. Database searches remain deterministic after the intent is selected.
+
 The HTTP endpoint is available at `POST /api/chat/`:
 
 ```json
