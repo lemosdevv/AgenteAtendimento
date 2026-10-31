@@ -23,9 +23,14 @@ class CustomerSupportAgent:
     def __init__(self, text_generator: TextGenerator):
         self.text_generator = text_generator
 
-    def respond(self, message: str, customer_id: int | None = None) -> str:
+    def respond(
+        self,
+        message: str,
+        customer_id: int | None = None,
+        history: list[dict[str, str]] | None = None,
+    ) -> str:
         context = self._build_context(message, customer_id)
-        prompt = self._build_prompt(message, context)
+        prompt = self._build_prompt(message, context, history or [])
         return self.text_generator.generate(prompt, SYSTEM_INSTRUCTION)
 
     def _build_context(self, message: str, customer_id: int | None) -> str:
@@ -56,8 +61,14 @@ class CustomerSupportAgent:
         return "\n\n".join(section for section in sections if section)
 
     @staticmethod
-    def _build_prompt(message: str, context: str) -> str:
+    def _build_prompt(message: str, context: str, history: list[dict[str, str]]) -> str:
+        history_text = "\n".join(
+            f"{item['role']}: {item['content']}" for item in history
+        ) or "Nenhuma mensagem anterior."
         return f"""
+Histórico da conversa:
+{history_text}
+
 Mensagem do cliente:
 {message}
 

@@ -65,7 +65,14 @@ The HTTP endpoint is available at `POST /api/chat/`:
 }
 ```
 
-The `customer_id` field is optional. Conversation persistence will be added in a later increment.
+The `customer_id` field is optional. The first request returns a `conversation_id`. Send that identifier in later requests to preserve the previous messages:
+
+```json
+{
+  "message": "E qual é o prazo estimado?",
+  "conversation_id": "returned-conversation-uuid"
+}
+```
 
 ## Planned increments
 
