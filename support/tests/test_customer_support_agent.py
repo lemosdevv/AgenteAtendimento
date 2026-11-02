@@ -7,8 +7,10 @@ class FakeTextGenerator:
     def __init__(self):
         self.prompt = None
         self.system_instruction = None
+        self.call_count = 0
 
     def generate(self, prompt, system_instruction=None):
+        self.call_count += 1
         self.prompt = prompt
         self.system_instruction = system_instruction
         return "Resposta simulada em português."
@@ -22,6 +24,7 @@ class CustomerSupportAgentTests(TestCase):
         response = agent.respond("Qual é o horário de funcionamento?")
 
         self.assertEqual(response, "Resposta simulada em português.")
+        self.assertEqual(generator.call_count, 1)
         self.assertIn("horário de funcionamento", generator.prompt)
         self.assertIn("Empório da Música", generator.system_instruction)
 

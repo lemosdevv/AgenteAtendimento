@@ -91,7 +91,8 @@ class ChatViewTests(TestCase):
             )
 
         self.assertEqual(response.status_code, 200)
-        self.assertIn("Nenhum pedido correspondente", generator.last_prompt)
+        self.assertIn("informe o número do pedido", response.json()["response"])
+        self.assertIsNone(generator.last_prompt)
 
     def test_chat_rejects_invalid_payload(self):
         response = self.client.post(
