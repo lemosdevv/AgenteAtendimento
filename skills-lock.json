@@ -31,6 +31,12 @@
       "skillPath": "skills/find-skills/SKILL.md",
       "computedHash": "b146008599c31057cef1c145774cea5d5afb30e8f43fa802e47a4b461419aaaf"
     },
+    "scenarios": {
+      "source": "langwatch/skills",
+      "sourceType": "github",
+      "skillPath": "scenarios/SKILL.md",
+      "computedHash": "30bdf3612ff9d742b113ce8ade1d2bbd98ff0a1dd0fb6c28b8861dcb70a7406a"
+    },
     "technical-documentation": {
       "source": "wondelai/skills",
       "sourceType": "github",
