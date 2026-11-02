@@ -1,0 +1,4 @@
+-r requirements.txt
+langwatch-scenario==0.7.9
+pytest>=9.0,<10.0
+pytest-asyncio>=1.4,<2.0
