@@ -8,7 +8,11 @@ from django.views.decorators.http import require_POST
 
 from support.models import Conversation, Message
 from support.services.customer_support_agent import CustomerSupportAgent
-from support.services.llm import GeminiTextGenerator, MissingGeminiApiKeyError
+from support.services.llm import (
+    GeminiRequestError,
+    GeminiTextGenerator,
+    MissingGeminiApiKeyError,
+)
 
 
 @csrf_exempt
@@ -77,7 +81,7 @@ def chat(request):
             customer_id=trusted_customer_id,
             history=history,
         )
-    except MissingGeminiApiKeyError as error:
+    except (GeminiRequestError, MissingGeminiApiKeyError) as error:
         return JsonResponse({"error": str(error)}, status=503)
 
     with transaction.atomic():
