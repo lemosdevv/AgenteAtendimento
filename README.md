@@ -251,3 +251,9 @@ Before you publish the repository, verify the following:
 ## License
 
 This repository contains challenge-specific code and data. Add a project license before redistributing it outside the evaluation context.
+
+
+<img width="1086" height="326" alt="Screenshot 2026-11-02 133247" src="https://github.com/user-attachments/assets/9d88e72e-2e0b-4a3e-a6e2-3ad10e392019" />
+<img width="798" height="89" alt="Screenshot 2026-11-02 133307" src="https://github.com/user-attachments/assets/54fc9c4c-53f6-4a70-8a29-535e99b41b89" />
+<img width="632" height="90" alt="Screenshot 2026-11-02 133322" src="https://github.com/user-attachments/assets/39f7e066-55d7-446b-87f5-5855032673c2" />
+<img width="1092" height="171" alt="Screenshot 2026-11-02 133619" src="https://github.com/user-attachments/assets/473d0d8d-6736-4799-ac44-3a0356386f26" />
